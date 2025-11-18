@@ -1,5 +1,8 @@
 package com.example.todoapplication.screens
 
+import android.content.Context
+import android.icu.util.Calendar
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +31,7 @@ import com.example.todoapplication.viewmodel.TodoViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditTodoScreen(
+    context: Context,
     viewModel: TodoViewModel,
     navController: NavController,
     backStackEntry: NavBackStackEntry
@@ -39,6 +43,23 @@ fun AddEditTodoScreen(
     var text by remember { mutableStateOf(existingTodo?.title ?: "") }
     var tag by remember { mutableStateOf(existingTodo?.tag ?: "") }
     var memo by remember { mutableStateOf(existingTodo?.memo ?: "") }
+    var dueDate by remember { mutableStateOf(existingTodo?.dueDate ?: "") }
+
+    val calendar = Calendar.getInstance()
+    val year = calendar.get(Calendar.YEAR)
+    val month = calendar.get(Calendar.MONTH)
+    val day = calendar.get(Calendar.DAY_OF_MONTH)
+    val datePickerDialog = remember {
+        android.app.DatePickerDialog(
+            context,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                dueDate = "$selectedYear-${selectedMonth + 1}-$selectedDay"
+            },
+            year,
+            month,
+            day
+        )
+    }
 
     Scaffold(
         topBar = { TopBar() }
@@ -64,6 +85,15 @@ fun AddEditTodoScreen(
                 value = memo,
                 onValueChange = { memo = it },
                 label = { Text("메모") })
+            TextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable{
+                    datePickerDialog.show()
+                },
+                value = dueDate,
+                onValueChange = { dueDate = it  },
+                label = { Text("날짜 선택") })
 
             Row (
                 modifier = Modifier
@@ -76,13 +106,14 @@ fun AddEditTodoScreen(
                     id = todoId ?: 0,
                     title = text,
                     tag = tag,
-                    memo = memo
+                    memo = memo,
+                    dueDate = dueDate
                 )
                 Button (onClick = {
                     if (todoId != null) {
-                        viewModel.updateTodo(newOrUpdatedTodo)
+                        viewModel.updateTodo(context, newOrUpdatedTodo)
                     } else {
-                        viewModel.addTodo(newOrUpdatedTodo)
+                        viewModel.addTodo(context, newOrUpdatedTodo)
                     }
                     navController.popBackStack()
                 }) {
@@ -94,11 +125,19 @@ fun AddEditTodoScreen(
                 }
                 if (todoId != null) {
                     Button(onClick = {
-                        viewModel.deleteTodo(newOrUpdatedTodo)
+                        viewModel.deleteTodo(context, newOrUpdatedTodo)
                         navController.popBackStack()
                     }) {
                         Text("삭제")
                     }
+                }
+                Button(onClick = {
+                    if (todoId != null) {
+                        viewModel.testAlarmAfterMinutes(context, todoId, "테스트 알람", 5)
+                    }
+                    navController.popBackStack()
+                }) {
+                    Text("테스트")
                 }
             }
         }

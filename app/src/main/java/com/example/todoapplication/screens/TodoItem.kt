@@ -1,5 +1,6 @@
 package com.example.todoapplication.screens
 
+import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,7 +24,7 @@ import com.example.todoapplication.data.TodoEntity
 import com.example.todoapplication.viewmodel.TodoViewModel
 
 @Composable
-fun TodoItem(todo: TodoEntity, viewModel: TodoViewModel, navController: NavController) {
+fun TodoItem(context: Context, todo: TodoEntity, viewModel: TodoViewModel, navController: NavController) {
     Row (
         modifier = Modifier
             .fillMaxWidth()
@@ -41,7 +42,7 @@ fun TodoItem(todo: TodoEntity, viewModel: TodoViewModel, navController: NavContr
         ) {
             Checkbox(checked = todo.isDone, onCheckedChange = { isChecked ->
                 val updatedTodo = todo.copy(isDone = isChecked)
-                viewModel.updateTodo(updatedTodo)
+                viewModel.updateTodo(context, updatedTodo)
             })
             Column (
                 modifier = Modifier
@@ -58,7 +59,7 @@ fun TodoItem(todo: TodoEntity, viewModel: TodoViewModel, navController: NavContr
                     contentDescription = "Edit Todo"
                 )
             }
-            IconButton (onClick = { viewModel.deleteTodo(todo) }) {
+            IconButton (onClick = { viewModel.deleteTodo( context, todo) }) {
                 Icon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = "Delete Todo"

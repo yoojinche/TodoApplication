@@ -14,7 +14,7 @@ interface TodoDao {
     fun getAll(): Flow<List<TodoEntity>>
 
     @Insert
-    suspend fun insert(todo: TodoEntity)
+    suspend fun insert(todo: TodoEntity): Long
 
     @Update
     suspend fun update(todo: TodoEntity)

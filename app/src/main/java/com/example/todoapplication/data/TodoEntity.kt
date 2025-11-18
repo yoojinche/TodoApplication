@@ -11,5 +11,6 @@ data class TodoEntity(
     val tag: String = "", // 태그
     val memo: String = "", // 메모
     val description: String = "", // 설명
-    val isDone: Boolean = false // 완료 여부
+    val isDone: Boolean = false, // 완료 여부
+    val dueDate: String = ""
 )
