@@ -1,5 +1,6 @@
-package com.example.todoapplication.screens
+package com.example.todoapplication.screens.todo
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.icu.util.Calendar
 import androidx.compose.foundation.clickable
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.example.todoapplication.data.TodoEntity
+import com.example.todoapplication.screens.component.TopBar
 import com.example.todoapplication.viewmodel.TodoViewModel
 
 
@@ -50,7 +52,7 @@ fun AddEditTodoScreen(
     val month = calendar.get(Calendar.MONTH)
     val day = calendar.get(Calendar.DAY_OF_MONTH)
     val datePickerDialog = remember {
-        android.app.DatePickerDialog(
+        DatePickerDialog(
             context,
             { _, selectedYear, selectedMonth, selectedDay ->
                 dueDate = "$selectedYear-${selectedMonth + 1}-$selectedDay"

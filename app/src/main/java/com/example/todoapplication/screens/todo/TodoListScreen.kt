@@ -1,4 +1,4 @@
-package com.example.todoapplication.screens
+package com.example.todoapplication.screens.todo
 
 import android.content.Context
 import androidx.compose.foundation.layout.padding

@@ -4,15 +4,13 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.compose.rememberNavController
-import com.example.todoapplication.navigation.NavGraph
+import com.example.todoapplication.navigation.AppNav
 import com.example.todoapplication.notification.NotificationHelper
 import com.example.todoapplication.ui.theme.TodoApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +29,14 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             TodoApplicationTheme {
+                AppNav(
+                    onLoginDone = {
+                        Toast.makeText(this, "로그인 성공!",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                )
+
+                /*
                 val nav = rememberNavController()
                 val context = LocalContext.current
 
@@ -41,6 +47,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 NavGraph(context, nav)
+                 */
             }
         }
     }

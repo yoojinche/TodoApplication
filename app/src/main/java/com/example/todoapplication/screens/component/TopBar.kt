@@ -1,4 +1,4 @@
-package com.example.todoapplication.screens
+package com.example.todoapplication.screens.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert

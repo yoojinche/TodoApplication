@@ -6,8 +6,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.todoapplication.screens.AddEditTodoScreen
-import com.example.todoapplication.screens.TodoListScreen
+import com.example.todoapplication.screens.todo.AddEditTodoScreen
+import com.example.todoapplication.screens.todo.TodoListScreen
 import com.example.todoapplication.viewmodel.TodoViewModel
 
 

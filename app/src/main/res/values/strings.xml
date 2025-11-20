@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TodoApplication</string>
+    <string name="my_web_client_id">
+        22484143288-rb4lphfsgnkcic7fc1ah5622mniscvl1.apps.googleusercontent.com
+    </string>
 </resources>
